@@ -8,33 +8,33 @@ const userSchema = new mongoose.Schema(
       unique: true,
       required: true,
     },
-    password: {
+    hashedPassword: {
       type: String,
       required: true,
     },
     streetAddress: {
       type: String,
-      required: true,
+      // required: true,
     },
     city: {
       type: String,
-      required: true, 
+      // required: true, 
     },
     zipcode: {
       type: String,
-      required: true,
+      // required: true,
     },
     state: {
       type: String,
-      required: true,
+      // required: true,
     },
     preferences: {
       type: [String],
-      required: true,
+      // required: true,
     },
     email: {
       type: String,
-      required: true,
+      // required: true,
       unique: true,
     },
   },
@@ -43,20 +43,20 @@ const userSchema = new mongoose.Schema(
   }
 );
 
-const SALT_WORK_FACTOR = process.env.SALT_WORK_FACTOR || 12;
+// const SALT_WORK_FACTOR = process.env.SALT_WORK_FACTOR || 12;
 
-// Match user entered password to hashed password in database
-userSchema.methods.matchPassword = async function (enteredPassword) {
-  return await bcrypt.compare(enteredPassword, this.password);
-};
+// // Match user entered password to hashed password in database
+// userSchema.methods.matchPassword = async function (enteredPassword) {
+//   return await bcrypt.compare(enteredPassword, this.password);
+// };
 
-userSchema.pre('save', async function (next) {
-  if (this.isModified('password')) {
-    const salt = await bcrypt.genSaltSync(SALT_WORK_FACTOR);
-    this.password = await bcrypt.hashSync(this.password, salt);
-  }
-  next();
-});
+// userSchema.pre('save', async function (next) {
+//   if (this.isModified('password')) {
+//     const salt = await bcrypt.genSaltSync(SALT_WORK_FACTOR);
+//     this.password = await bcrypt.hashSync(this.password, salt);
+//   }
+//   next();
+// });
 
 const User = mongoose.model('User', userSchema);
 

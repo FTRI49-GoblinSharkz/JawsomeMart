@@ -4,6 +4,7 @@ Imports
 
 import { useState, createContext, useEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
+import * as authService from '../../services/authService'
 
 import SigninForm from './SigninForm';
 import SignupForm from './SignupForm';
@@ -24,18 +25,25 @@ function Home(props) {
       setLoginForm(loginForm*-1)
       // console.log(loginForm)
   }
+  const handleSignout = () => {
+    authService.signout();
+    setUser(null);
+  };
 
   return (
     <>
-      <div>
+      <>
+        {/* <p>{JSON.stringify(props)}</p> */}
+        <div>
             {loginForm > 0 ? (
                 <>
-                    <SigninForm handleFormSwap={handleFormSwap}/>
+                    <SigninForm setUser={props.setUser} handleFormSwap={handleFormSwap}/>
                 </>
             ):(
-                <SignupForm handleFormSwap={handleFormSwap}/>
+                <SignupForm setUser={props.setUser} handleFormSwap={handleFormSwap}/>
             )}
         </div>
+      </>
       </>
   );
 }

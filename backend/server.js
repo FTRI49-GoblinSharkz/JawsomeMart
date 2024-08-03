@@ -12,6 +12,8 @@ app.use(express.json());
 
 
 app.use('/api', productsRoutes);
+app.use('/api/users', userRoutes);
+
 app.use((req, res) =>
     res.status(404).send("This is not the page you're looking for...")
   );
