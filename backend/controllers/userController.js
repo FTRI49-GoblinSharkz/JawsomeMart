@@ -1,8 +1,9 @@
 const User = require('../models/userModel.js');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 
 function generateAccessToken(user) {
-  const SECRET = 'hellothere';
+  const SECRET = process.env.JWT_SECRET
   const token = jwt.sign(user, SECRET, { algorithm: 'HS256' }); //xxxxxx.yyyyyyyy.zzzzzzz 6678091273198327xx.hellothere.HS256
   return token;
 }
@@ -30,6 +31,31 @@ const userController = {
       });
     }
   },
+
+  async userSignin(req, res, next) {
+    try {
+      
+      const user = await User.findOne({ username: req.body.username });
+
+      if (user && bcrypt.compareSync(req.body.password, user.password)) {
+        const jwtToken = generateAccessToken({ id: user._id });
+        
+        res.locals.data = { user, jwtToken };
+        next();
+
+      } else {
+          res.status(401).json({ error: 'Invalid username or password.' });
+      }
+
+    } catch (err) {
+      return next({
+        log: `userController error from userSignin ${err}`,
+        status: 500,
+        message: { err: 'An error occurred while signing user' },
+      });
+    }
+  }
+
 };
 
 module.exports = userController;

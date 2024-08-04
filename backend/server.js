@@ -5,12 +5,16 @@ const path = require('path');
 const db = require('./config/db.js');
 const productsRoutes = require('./routes/productRoutes.js');
 const userRoutes = require('./routes/userRoutes');
+const cartRoutes = require('./routes/cartRoutes');
+const verifyToken = require ('./middleware/verify-token.js');
+
 require('dotenv').config();
 
 db();
 app.use(express.json());
 
 app.use('/api/auth', userRoutes);
+app.use('/api/cart', cartRoutes);
 
 app.use('/api', productsRoutes);
 app.use((req, res) =>

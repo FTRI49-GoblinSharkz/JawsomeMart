@@ -1,44 +1,52 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import * as authService from '../../services/authService'
 
 import styles from "./Home.module.css"
 
 const SigninForm = (props) => {
     const navigate = useNavigate();
-    // const [message, setMessage] = useState(['']);
+    const [message, setMessage] = useState(['']);
     const [formData, setFormData] = useState({
-    //   username: '',
-    //   password: '',
+      username: '',
+      password: '',
     });
   
-    // const updateMessage = (msg) => {
-    //   setMessage(msg);
-    // };
+    const updateMessage = (msg) => {
+      setMessage(msg);
+    };
   
     const handleChange = (e) => {
-    //   updateMessage('');
-    //   setFormData({ ...formData, [e.target.name]: e.target.value });
+      updateMessage('');
+      setFormData({ ...formData, [e.target.name]: e.target.value });
     };
   
-    const handleSubmit = async (e) => {
-    //   e.preventDefault();
-    //   try {
-    //     const user = await authService.signin(formData);
-    //     console.log(user);
-    //     props.setUser(user);
-    //     navigate('/game/basic-strategy');
-    //   } catch (err) {
-    //     updateMessage(err.message);
-    //   }
-    };
-  
+    const handleSubmit = async (e) => { 
+      e.preventDefault(e)
 
+      console.log('submit')
+      try {
+        const user = await authService.signin(formData);
+        console.log(user);
+        props.setUser(user);
+        navigate('/marketplace');
+      } catch (err) {
+        updateMessage(err.message);
+      }
+    };
+
+    const testBackEnd = async (e) => {
+        e.preventDefault();
+        console.log('hit')
+        authService.testBackendConnection();
+    }
   
     return (
       <main>
         <div className = {styles.formHeader}>
+          <button onClick ={testBackEnd}>test backend</button>
           <h1>Log In</h1>
-          {/* <p>{message}</p> */}
+          <p>{message}</p>
         </div>
         <div className={styles.formContainer}>
             <form autoComplete="off" onSubmit={handleSubmit}>

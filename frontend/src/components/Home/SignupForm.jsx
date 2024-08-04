@@ -1,42 +1,42 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-// import * as authService from '../../services/authService';
+import * as authService from '../../services/authService';
 
 import styles from "./Home.module.css"
 
 const SignupForm = (props) => {
   const navigate = useNavigate();
-//   const [message, setMessage] = useState(['']);
+  const [message, setMessage] = useState(['']);
   const [formData, setFormData] = useState({
-//     username: '',
-//     password: '',
-//     passwordConf: '',
+    username: '',
+    password: '',
+    passwordConf: '',
   });
 
-//   const updateMessage = (msg) => {
-//     setMessage(msg);
-//   };
+  const updateMessage = (msg) => {
+    setMessage(msg);
+  };
 
   const handleChange = (e) => {
-//     setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     try {
-//       const newUserResponse = await authService.signup(formData);
-//       // console.log(newUserResponse)
-//       props.setUser(newUserResponse.user);
-//       navigate('/game/basic-strategy');
-//     } catch (err) {
-//       updateMessage(err.message);
-//     }
+    e.preventDefault();
+    try {
+      const newUserResponse = await authService.signup(formData);
+      console.log(newUserResponse)
+      props.setUser(newUserResponse.user);
+      navigate('/marketplace');
+    } catch (err) {
+      updateMessage(err.message);
+    }
   };
 
-//   const { username, password, passwordConf } = formData;
+  const { username, password, passwordConf } = formData;
 
   const isFormInvalid = () => {
-    // return !(username && password && password === passwordConf);
+    return !(username && password && password === passwordConf);
   };
 
   return (
@@ -44,7 +44,7 @@ const SignupForm = (props) => {
       {/* <p>signUp comp{JSON.stringify(props)}</p> */}
       <div className = {styles.formHeader}>
         <h1>Sign Up</h1>
-        {/* <p>{message}</p> */}
+        <p>{message}</p>
       </div>
       <div className={styles.formContainer}>
         <form onSubmit={handleSubmit}>
@@ -53,7 +53,7 @@ const SignupForm = (props) => {
             <input
               type="text"
               id="username"
-              // value={username}
+              value={username}
               name="username"
               onChange={handleChange}
             />
@@ -63,7 +63,7 @@ const SignupForm = (props) => {
             <input
               type="password"
               id="password"
-              // value={password}
+              value={password}
               name="password"
               onChange={handleChange}
             />
@@ -73,7 +73,7 @@ const SignupForm = (props) => {
             <input
               type="password"
               id="confirm"
-              // value={passwordConf}
+              value={passwordConf}
               name="passwordConf"
               onChange={handleChange}
             />
