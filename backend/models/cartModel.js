@@ -16,6 +16,10 @@ const cartSchema = new Schema({
   ],
 });
 
+// {id: 4, title: 'Mens Casual Slim Fit', price: 15.99, description: 'The color could be slightly different between on t…uld be reviewed below on the product description.', category: "men's clothing", …}
+
+// '4'
+
 const Cart = mongoose.model("Cart", cartSchema);
 
 module.exports = Cart;

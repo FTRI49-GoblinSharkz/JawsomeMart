@@ -7,6 +7,7 @@ router.post('/',authenticate, cartController.createCart ,(req,res)=>{
 })
     
 router.get('/', authenticate, cartController.getCart ,(req,res)=>{
+
 })
     
 module.exports = router;
