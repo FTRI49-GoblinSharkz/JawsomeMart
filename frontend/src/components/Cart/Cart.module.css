@@ -1,13 +1,49 @@
 
+.cartContainer {
+    width: 80vw;
+    max-width:1400px;
+    margin: 0 auto;
+    padding: 40px 0 40px 0;
+}
+
+.totalContainer {
+    display: flex;
+    border: 2px solid rgb(82, 82, 82);
+    border-radius: 5px;
+    padding: 20px;
+    justify-content: space-between;
+    margin: 0 0 40px 0;
+}
+
+.totalContainer button {
+    padding: 20px;
+    max-height: 80px;
+    align-self: center;
+    border-radius: 5px;
+    background-color: rgb(229, 181, 36);
+    color: white;
+    cursor: pointer;
+    border: none;
+}
+
+.totalContainer p, h2{
+    margin: 0px
+}
+
+.totalDetails {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    flex-grow: 1;
+}
+
+
 .itemContainer{
     display: flex;
     border: 1px solid lightgray;
     border-radius: 5px;
     padding: 10px;
-
-    width: 80vw;
-    
     justify-content: space-between;
+    margin: 20px 0 0 0;
 }
 
 .itemCard{

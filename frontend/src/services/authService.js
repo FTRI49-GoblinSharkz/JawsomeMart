@@ -26,6 +26,7 @@ const signup = async (formData) => {
     console.log(json)
     localStorage.setItem('jwtToken', json.jwtToken);
     return json;
+
   } catch (err) {
     throw new Error(err);
   }

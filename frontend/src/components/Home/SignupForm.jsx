@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import * as authService from '../../services/authService';
 
-import styles from "./Home.module.css"
+import styles from "./Form.module.css"
 
 const SignupForm = (props) => {
   const navigate = useNavigate();
@@ -25,13 +25,18 @@ const SignupForm = (props) => {
     e.preventDefault();
     try {
       const newUserResponse = await authService.signup(formData);
-      console.log(newUserResponse)
-      props.setUser(newUserResponse.user);
+      console.log('user', newUserResponse)
+      await props.setUser(newUserResponse.user);
       navigate('/marketplace');
     } catch (err) {
       updateMessage(err.message);
     }
   };
+
+  const handleFormSwap = () => {
+    navigate('/'); // Adjust this as needed
+  };
+
 
   const { username, password, passwordConf } = formData;
 
@@ -40,55 +45,58 @@ const SignupForm = (props) => {
   };
 
   return (
-    <main>
-      {/* <p>signUp comp{JSON.stringify(props)}</p> */}
-      <div className = {styles.formHeader}>
-        <h1>Sign Up</h1>
-        <p>{message}</p>
+    <>
+      <div className = {styles.mainContainer}>
+        {/* <p>signUp comp{JSON.stringify(props)}</p> */}
+        
+        <div className={styles.formContainer}>
+          <div className = {styles.formHeader}>
+            <h1>Sign Up</h1>
+            <p>{message}</p>
+          </div>
+          <form onSubmit={handleSubmit}>
+            <div className = {styles.inputContainer}>
+              <label htmlFor="username">Username:</label>
+              <input
+                type="text"
+                id="username"
+                value={username}
+                name="username"
+                onChange={handleChange}
+              />
+            </div>
+            <div className = {styles.inputContainer}>
+              <label htmlFor="password">Password:</label>
+              <input
+                type="password"
+                id="password"
+                value={password}
+                name="password"
+                onChange={handleChange}
+              />
+            </div>
+            <div className = {styles.inputContainer}>
+              <label htmlFor="confirm">Confirm Password:</label>
+              <input
+                type="password"
+                id="confirm"
+                value={passwordConf}
+                name="passwordConf"
+                onChange={handleChange}
+              />
+            </div>
+            <div className = {styles.inputContainer}>
+              <button disabled={isFormInvalid()}>Create Account</button>
+            </div>
+          </form>
+        </div>
+        <div className={styles.formFooter}>
+          <Link to="/">
+            <button onClick={handleFormSwap}>Back to Login</button>
+          </Link>
+        </div>
       </div>
-      <div className={styles.formContainer}>
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor="username">Username:</label>
-            <input
-              type="text"
-              id="username"
-              value={username}
-              name="username"
-              onChange={handleChange}
-            />
-          </div>
-          <div>
-            <label htmlFor="password">Password:</label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              name="password"
-              onChange={handleChange}
-            />
-          </div>
-          <div>
-            <label htmlFor="confirm">Confirm Password:</label>
-            <input
-              type="password"
-              id="confirm"
-              value={passwordConf}
-              name="passwordConf"
-              onChange={handleChange}
-            />
-          </div>
-          <div>
-            <button disabled={isFormInvalid()}>Create Account</button>
-          </div>
-        </form>
-      </div>
-      <div className={styles.formFooter}>
-        <Link to="/">
-          <button onClick={props.handleFormSwap}>Back to Login</button>
-        </Link>
-      </div>
-    </main>
+    </>
   );
 };
 

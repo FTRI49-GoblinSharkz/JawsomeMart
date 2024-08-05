@@ -1,5 +1,54 @@
-nav {
+
+.navContainer{
     display: flex;
-    border-bottom: 1px solid black;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    padding: 20px;
+    max-width:1400px;
+    letter-spacing: 0.02em;
+    margin: 0 auto;
+    font-weight: 700;
 }
+
+.navContainer a {
+    text-decoration: none;
+    color:white;
+}
+
+.navContainer li {
+    list-style-type: none;
+}
+
+nav {
+    border-bottom: 1px solid rgba(128, 128, 128, 0.415);
+    align-items: center;
+    justify-content: center;
+    background-color: #232f3e;
+}
+
+.navRight {
+    display: flex; 
+    color: white;
+    gap: 20px;
+}
+
+.navLeft {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow:hidden;
+    max-height: 7%;
+    max-width: 50px;
+}
+
+.navLeft img {
+    max-height: 50px;
+}
+
+
+
+
+
 
