@@ -3,7 +3,6 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 
 
 
-import Home from './components/Home/Home';
 import Navbar from './components/Navbar/Navbar';
 import Marketplace from './components/Marketplace/Marketplace'
 import Cart from './components/Cart/Cart'
@@ -36,13 +35,12 @@ function App() {
     }
   }, [user]);
   
-  
   return (
     <>
       <AuthedUserContext.Provider value={user}>
         {/* <Navbar handleSignout={handleSignout}/> */}
         <Navbar handleSignout={handleSignout}/>
-        <div>
+        <div className="appContainer">
           <Routes>
             {user ?  (
               <>
@@ -51,9 +49,9 @@ function App() {
               </> 
             ) : (
               <>
-                <Route path="/" element={<Home setUser={setUser}/>}/>
+                <Route path="/" element={<SigninForm setUser={setUser} />} />
                 <Route path="/signup" element={<SignupForm setUser={setUser} />} />
-                <Route path="/signin" element={<SigninForm setUser={setUser} />} />
+                
               </>
             )}
             
