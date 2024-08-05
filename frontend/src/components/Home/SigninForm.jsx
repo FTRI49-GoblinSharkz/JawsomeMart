@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import * as authService from '../../services/authService'
 
-import styles from "./Home.module.css"
+import styles from "./Form.module.css"
 
 const SigninForm = (props) => {
     const navigate = useNavigate();
@@ -35,47 +35,54 @@ const SigninForm = (props) => {
       }
     };
 
+    const handleFormSwap = () => {
+      navigate('/signup'); // Adjust this as needed
+    };
+
     return (
-      <main>
-        <div className = {styles.formHeader}>
-          <h1>Log In</h1>
-          <p>{message}</p>
-        </div>
-        <div className={styles.formContainer}>
-            <form autoComplete="off" onSubmit={handleSubmit}>
-              <div>
-                <label htmlFor="username">Username:</label>
+      <>
+        <div className = {styles.mainContainer}>
+          
+          <div className={styles.formContainer}>
+              <div className = {styles.formHeader}>
+                <h1>Log In</h1>
+                <p>{message}</p>
+              </div>
+              <form autoComplete="off" onSubmit={handleSubmit}>
+                <div className = {styles.inputContainer}>
+                  <label htmlFor="username">Username:</label>
+                  <input
+                    type="text"
+                    autoComplete="off"
+                    id="username"
+                    value={formData.username}
+                    name="username"
+                    onChange={handleChange}
+                  />
+                </div>
+            
+                <div className = {styles.inputContainer}>
+                <label htmlFor="password">Password:</label>
                 <input
-                  type="text"
+                  type="password"
                   autoComplete="off"
-                  id="username"
-                  value={formData.username}
-                  name="username"
+                  id="password"
+                  value={formData.password}
+                  name="password"
                   onChange={handleChange}
                 />
               </div>
-          
-            <div>
-              <label htmlFor="password">Password:</label>
-              <input
-                type="password"
-                autoComplete="off"
-                id="password"
-                value={formData.password}
-                name="password"
-                onChange={handleChange}
-              />
-            </div>
-            <div>
-              <button>Log In</button>
-            </div>
-          </form>
+              <div className = {styles.inputContainer}>
+                <button>Log In</button>
+              </div>
+            </form>
+          </div>
+          <div className={styles.formFooter}>
+            <p>Need an account?</p>
+            <button onClick={handleFormSwap}> Sign Up</button>    
+          </div>
         </div>
-        <div className={styles.formFooter}>
-          <p>Need an account?</p>
-          <button onClick={props.handleFormSwap}> Sign Up</button>    
-        </div>
-      </main>
+      </>
     );
   };
   

@@ -32,7 +32,7 @@ const create = async (formData) => {
     }
 };
 
-
+// remove an item from the cart
 const update = async (cart) => {
   try{
     console.log('update', cart)
@@ -50,11 +50,12 @@ const update = async (cart) => {
   }
 }
 
+
 const add = async (newItem) => {
   try{
     console.log('add', newItem)
     const res = await fetch(`${BACKEND_URL}/cart/add`, {
-      method: 'PUT',
+      method: 'POST',
       headers: {
           Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
           'Content-Type': 'application/json',
