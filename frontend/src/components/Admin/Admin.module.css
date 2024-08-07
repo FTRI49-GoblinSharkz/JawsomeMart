@@ -1,7 +1,19 @@
-.admin-panel {
+.adminPanel {
     height: 100%;
     width: 100%;
     background: gray;
     display: grid;
     place-content: center;
 }
+
+.adminPanelItems {
+
+}
+
+.adminPanelItems li:nth-child(odd) {
+background: white;
+}
+
+.adminPanelItems li:nth-child(even) {
+    background: lightgrey;
+    }
