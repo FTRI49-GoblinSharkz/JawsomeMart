@@ -10,16 +10,23 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Product from './Product.jsx';
+import { render } from '@testing-library/react'
+
 
 // Importing CSS file
 import './Marketplace.css';
 
+
 // Defines our Marketplace function to be exported
 const Marketplace = () => {
-    
+
+    const sum = (a,b) => {
+        return a+b
+    }
+
     // Creates state array to store Product components
     const [displayedProducts, setProducts] = useState([]);
-
+console.log("displayedProducts", displayedProducts)
     // Creates a new array to hold all products returned from db
     // const allProducts = [];
 
@@ -79,3 +86,15 @@ const Marketplace = () => {
 
 // Exports the Marketplace function
 export default Marketplace;
+
+
+// In-Source Test
+if (import.meta.vitest) {
+    const { it, expect } = import.meta.vitest
+  
+    it('renders correct type of value', () => {
+        const { container } = render(<Marketplace />);
+        const displayedProductsArray = container.querySelector('.product-display').childNodes;
+        expect(Array.isArray(Array.from(displayedProductsArray))).toBe(true);
+    })
+}
