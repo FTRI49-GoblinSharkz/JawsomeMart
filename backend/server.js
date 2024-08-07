@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const port = 5000;
+const port = 8080;
 require('dotenv').config();
 const path = require('path');
 const db = require('./config/db.js');
@@ -13,6 +13,7 @@ app.use(express.json());
 app.use('/api/cart', cartRoutes);
 app.use('/api/auth', userRoutes);
 app.use('/api', productsRoutes);
+
 
 app.use((req, res) =>
   res.status(404).send("This is not the page you're looking for...")
