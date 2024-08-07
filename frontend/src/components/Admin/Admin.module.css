@@ -1,0 +1,7 @@
+.admin-panel {
+    height: 100%;
+    width: 100%;
+    background: gray;
+    display: grid;
+    place-content: center;
+}
