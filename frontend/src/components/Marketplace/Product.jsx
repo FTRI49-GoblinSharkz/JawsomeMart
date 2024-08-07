@@ -1,5 +1,8 @@
 // Importing required dependencies
+import React from 'react';
+import { useState } from 'react'
 import * as cartService from '../../services/cartService.js';
+import Popup from './Popup.jsx';
 
 /** 
  * This function takes properties passed from a parent and generates
@@ -19,6 +22,8 @@ const Product = (props) => {
             })
     }
 
+
+
     // Returns a product div to be rendered in the marketplace
     return (
         <div className="product-box">
@@ -37,12 +42,13 @@ const Product = (props) => {
                 <button onClick={ addProductToCart }>
                     Add to Cart
                 </button>
-                {/* Item Category: { props.category } */}
+                <button>CLICK HERE</button>
+              
             </h4>
+          
+            
 
-            {/* <div className="description-box">
-                {props.description}
-            </div> */}
+
 
 
         </div>
