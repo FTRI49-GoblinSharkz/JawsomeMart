@@ -7,31 +7,36 @@
  */
 
 // Importing necessary tools
-import { useState, useEffect } from 'react';
+import { InputGroup , Form, useState, useEffect } from 'react';
 import axios from 'axios';
 import Product from './Product.jsx';
+import Search from './Search.jsx';
+
 
 // Importing CSS file
 import './Marketplace.css';
 
+
 // Defines our Marketplace function to be exported
-const Marketplace = () => {
+const Marketplace = (  ) => {
     
     // Creates state array to store Product components
-    const [displayedProducts, setProducts] = useState([]);
+    const [displayedProducts, setDisplayedProducts] = useState([]);
 
     // Creates a new array to hold all products returned from db
     // const allProducts = [];
 
     // Function that sends a "GET" request to the DB to fetch product data
+
     const getComponents = () => {
+        // {FilterItems} prop for get componenet
 
         // Sends a "GET" request for products stored in db
         axios.get('/api/products')
             .then(res => {
 
                 // Function that changes the state of products array
-                setProducts(() => {
+                setDisplayedProducts(() => {
 
                     // Saves the current array in newProducts
                     const newProducts = [];
@@ -39,6 +44,7 @@ const Marketplace = () => {
                     // Pushes product components to an array passing in data as props
                     for (let i = 0; i < arr.length; i++) {
                         const newProduct = (<Product
+                            key = {crypto.randomUUID()}
                             product_id={arr[i]._id}
                             id={arr[i].id}
                             title={arr[i].title}
@@ -59,6 +65,7 @@ const Marketplace = () => {
 
             // Catches any errors during our get request and displays a message box with the error
             .catch(e => {
+                
                 alert(e);
             })
     };
@@ -70,9 +77,27 @@ const Marketplace = () => {
     }, []);
 
     // Returns a styled div containing the rendered products
+    //
     return (
-        <div className="product-display">
-            { displayedProducts }
+        <div>
+            {/* <Form>
+                <InputGroup classname = 'searchInput'>
+                < input type='text' placeholder='Enter item here...' onChange={FilterItems}></input>
+                <Form Control   
+                onchange{(e)=>{ () =>{
+
+                }                 
+                }}
+                 />
+
+                </InputGroup>
+                </Form> */}
+                
+            <Search displayedProducts = {displayedProducts} setDisplayedProducts = { setDisplayedProducts } getComponents = { getComponents }/>
+           
+            <div className="product-display">
+                { displayedProducts }
+            </div>
         </div>
     );
 };
