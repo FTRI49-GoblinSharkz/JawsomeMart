@@ -13,24 +13,23 @@ export default function Search( { displayedProducts, setDisplayedProducts, getCo
        
         // filter over the current state (displayedProducts) for only the things strictly equal to state(search)
 // cases    
-        //case1: searchquery is empty 
+        //case1: searchquery is emptgit  
         // if (e.target.value === '') setSearch(getComponents())
         if (query === '') {
             setDisplayedProducts(getComponents());
             return;
         }
-        //case 2 : returns some itmes mathcing the query but not all 
-        if(porps.)
 
-
-        //case3 : if they search something and nothing shows up
-        //not reutnring any 
-        if (results.length === 0) console.log('No items matching search.')
 
         let results = displayedProducts.filter((ele)=>{
 
         return ele.props.title.toLowerCase().includes(e.target.value.toLowerCase())
         })
+
+        //edge case 3 : Check and log when query returns 0 matching results 
+         if(results.length === 0){ 
+            // console.log('No items matching search.');
+         }
 
     setDisplayedProducts(results);
     }
@@ -39,7 +38,6 @@ export default function Search( { displayedProducts, setDisplayedProducts, getCo
         <input type='text' 
         placeholder='Enter Item Here' 
         value={search} onChange={ (e) => {handleSearch(e)}}>
-
         </input>
     </div>
   )
