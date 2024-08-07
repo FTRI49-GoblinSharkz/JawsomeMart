@@ -53,6 +53,8 @@ const Marketplace = (  ) => {
                             description={arr[i].description}
                             image={arr[i].image}
                             rating={arr[i].rating}
+                            stock={arr[i].stock}
+                            num_sold={arr[i].num_sold}
                         />);
 
                         // Pushes each product into allProducts array and displayedProducts arr
