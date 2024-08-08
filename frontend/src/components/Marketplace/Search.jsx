@@ -1,44 +1,40 @@
-import React from 'react'
-import { useState } from 'react';
+// Search.jsx
 
-export default function Search( { displayedProducts, setDisplayedProducts, getComponents} ) {
-    const [search, setSearch] = useState('') 
+import React, { useState } from 'react';
+import './Search.css';
 
+export default function Search({ allProducts, displayedProducts, setDisplayedProducts }) { // Vince implemented
+    const [search, setSearch] = useState('');
 
     const handleSearch = (e) => {
-        const query = e.target.value.toLowerCase();
-        console.log('reacehd handle search')
-        // update search state to match the input
+        const query = e.target.value;
         setSearch(query);
-       
-        // filter over the current state (displayedProducts) for only the things strictly equal to state(search)
-// cases    
-        //case1: searchquery is emptgit  
-        // if (e.target.value === '') setSearch(getComponents())
+
         if (query === '') {
-            setDisplayedProducts(getComponents());
+            setDisplayedProducts(allProducts); // Vince implemented
             return;
         }
 
+        const results = allProducts.filter(product => 
+            product.props.title.toLowerCase().includes(query.toLowerCase()) // Vince implemented
+        );
 
-        let results = displayedProducts.filter((ele)=>{
+        if (results.length === 0) {
+            console.log('No items matching search.');
+        }
 
-        return ele.props.title.toLowerCase().includes(e.target.value.toLowerCase())
-        })
+        setDisplayedProducts(results);
+    };
 
-        //edge case 3 : Check and log when query returns 0 matching results 
-         if(results.length === 0){ 
-            // console.log('No items matching search.');
-         }
-
-    setDisplayedProducts(results);
-    }
-  return (
-    <div>
-        <input type='text' 
-        placeholder='Enter Item Here' 
-        value={search} onChange={ (e) => {handleSearch(e)}}>
-        </input>
-    </div>
-  )
+    return (
+        <div>
+            <input 
+                className='searchbar'
+                type='text'
+                placeholder='Search Item Here...'
+                value={search}
+                onChange={handleSearch}
+            />
+        </div>
+    );
 }

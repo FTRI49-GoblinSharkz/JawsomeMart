@@ -1,14 +1,15 @@
-// Importing required dependencies
 import React from 'react';
 import { useState } from 'react'
 import * as cartService from '../../services/cartService.js';
-import Popup from './Popup.jsx';
+import './Popup.css';
+
 
 /** 
  * This function takes properties passed from a parent and generates
  * a div to display the data
 */
 const Product = (props) => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const objID = props.product_id;
 
 
@@ -21,6 +22,14 @@ const Product = (props) => {
                 alert('Item added to cart!');
             })
     }
+
+    const popupModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
 
 
 
@@ -37,13 +46,27 @@ const Product = (props) => {
             </div>
 
 
-            <h4>
+            <h4 className='h4'>
                 ${props.price} USD
-                <button onClick={ addProductToCart }>
+                <button className='button1' onClick={ addProductToCart }>
                     Add to Cart
                 </button>
-                <button>CLICK HERE</button>
-              
+                <button className='details' onClick={popupModal}>
+                    More Details Here
+                </button>
+                {isModalOpen && (
+                    <div className='modal active' id='modal'>
+                        <div className='modal-header'>
+                            <div className='title'>{props.title}</div>
+                            <button onClick={closeModal} className='close-button'>&times;</button>
+                        </div>
+                        <div className='modal-body'>
+                            <img className='imgs'src={props.image} alt={props.title} />
+                            <p>{props.description}</p>
+                        </div>
+                    </div>
+                )}
+                {isModalOpen && <div className='active' id='overlay' onClick={closeModal}></div>}
             </h4>
           
             
