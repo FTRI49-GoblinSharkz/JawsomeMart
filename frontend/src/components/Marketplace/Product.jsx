@@ -45,9 +45,9 @@ const Product = (props) => {
                 <img src={props.image}/>
             </div>
 
-
             <h4 className='h4'>
                 ${props.price} USD
+                <b>Stock: { props.stock }</b>
                 <button className='button1' onClick={ addProductToCart }>
                     Add to Cart
                 </button>

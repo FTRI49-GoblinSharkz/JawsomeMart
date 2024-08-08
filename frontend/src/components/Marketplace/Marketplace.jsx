@@ -11,6 +11,7 @@ import { InputGroup , Form, useState, useEffect } from 'react';
 import axios from 'axios';
 import Product from './Product.jsx';
 import Search from './Search.jsx';
+import Pagination from './Pagination.jsx';
 
 // Importing CSS file
 import './Marketplace.css';
@@ -20,6 +21,9 @@ const Marketplace = () => {
     // Creates state array to store Product components
     const [displayedProducts, setDisplayedProducts] = useState([]);
     const [allProducts, setAllProducts] = useState([]); // Vince implemented
+    const [currentPage, setCurrentPage] = useState(1);
+    const [productsPerPage, setProductPerPage] = useState(8);
+
 
     // Function that sends a "GET" request to the DB to fetch product data
     const getComponents = () => {
@@ -38,6 +42,7 @@ const Marketplace = () => {
                         description={product.description}
                         image={product.image}
                         rating={product.rating}
+                        stock={product.stock}
                     />
                 ));
                 setAllProducts(newProducts); // Vince implemented
@@ -53,6 +58,9 @@ const Marketplace = () => {
         getComponents();
         console.log("hit");
     }, []);
+    const lastPostIndex =  currentPage * productsPerPage;
+    const firstPostIndex = lastPostIndex - productsPerPage;
+    const currentPost =   displayedProducts.slice(firstPostIndex, lastPostIndex);
 
     // Returns a styled div containing the rendered products
     return (
@@ -64,8 +72,14 @@ const Marketplace = () => {
                 getComponents={getComponents} 
             />
             <div className="product-display">
-                {displayedProducts}
+                {currentPost}
             </div>
+            <Pagination
+                totalProducts={displayedProducts.length}
+                productsPerPage={productsPerPage}
+                setCurrentPage={setCurrentPage}
+                currentPage={currentPage}
+/>
         </div>
     );
 };
