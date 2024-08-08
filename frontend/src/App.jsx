@@ -13,6 +13,7 @@ import SignupForm from './components/Home/SignupForm';
 import * as authService from '../src/services/authService'
 import './App.css';
 import AdminPanel from './components/Admin/AdminPanel';
+import Landing from './components/Landing/Landing';
 
 
 export const AuthedUserContext = createContext(null);
@@ -21,7 +22,7 @@ export const AuthedUserContext = createContext(null);
 function App() {
   
   const navigate = useNavigate();
-
+  const [enter, setEnter] = useState(false);
   const [user, setUser] = useState(authService.getUser()); // look for an active user
 
   const handleSignout = () => {
@@ -39,11 +40,12 @@ function App() {
   return (
     <>
       <AuthedUserContext.Provider value={user}>
+        <Landing enter={enter} setEnter={setEnter}/>
         {/* <Navbar handleSignout={handleSignout}/> */}
         <Navbar handleSignout={handleSignout}/>
         <div className="appContainer">
           <Routes>
-            {user ?  (
+            {user && enter ?  (
               <>
                 <Route path='/marketplace' element={<Marketplace />} />
                 <Route path='/cart' element={<Cart />} />
@@ -53,7 +55,6 @@ function App() {
               <>
                 <Route path="/" element={<SigninForm setUser={setUser} />} />
                 <Route path="/signup" element={<SignupForm setUser={setUser} />} />
-                
               </>
             )}
             
