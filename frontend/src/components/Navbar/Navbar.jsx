@@ -35,7 +35,7 @@ function Navbar({handleSignout}) {
           </div>
           {user ? (
           <div className={styles.navRight}>          
-            
+            {user.id === "66b38bf96458332b4880b905" ?  <li><Link to='/admin'>Admin</Link></li> : <></>}  
               <li><Link to='/cart'>My Cart</Link></li>
               <li><Link to="/Marketplace">Marketplace</Link></li>
               <li><Link to='' onClick={handleSignout}>Sign Out</Link></li>
