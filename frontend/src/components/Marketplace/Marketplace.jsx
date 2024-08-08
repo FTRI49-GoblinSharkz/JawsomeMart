@@ -10,109 +10,60 @@
 import { InputGroup , Form, useState, useEffect } from 'react';
 import axios from 'axios';
 import Product from './Product.jsx';
-<<<<<<< HEAD
-import { render } from '@testing-library/react'
-=======
 import Search from './Search.jsx';
->>>>>>> 043cce4eea9514b36feff4cfdb5fa979077fda5e
-
 
 // Importing CSS file
 import './Marketplace.css';
 
-
 // Defines our Marketplace function to be exported
-<<<<<<< HEAD
 const Marketplace = () => {
-
-    const sum = (a,b) => {
-        return a+b
-    }
-
-    // Creates state array to store Product components
-    const [displayedProducts, setProducts] = useState([]);
-console.log("displayedProducts", displayedProducts)
-=======
-const Marketplace = (  ) => {
-    
     // Creates state array to store Product components
     const [displayedProducts, setDisplayedProducts] = useState([]);
-
->>>>>>> 043cce4eea9514b36feff4cfdb5fa979077fda5e
-    // Creates a new array to hold all products returned from db
-    // const allProducts = [];
+    const [allProducts, setAllProducts] = useState([]); // Vince implemented
 
     // Function that sends a "GET" request to the DB to fetch product data
-
     const getComponents = () => {
-        // {FilterItems} prop for get componenet
-
-        // Sends a "GET" request for products stored in db
         axios.get('/api/products')
             .then(res => {
-
                 // Function that changes the state of products array
-                setDisplayedProducts(() => {
-
-                    // Saves the current array in newProducts
-                    const newProducts = [];
-                    const arr = res.data;
-                    // Pushes product components to an array passing in data as props
-                    for (let i = 0; i < arr.length; i++) {
-                        const newProduct = (<Product
-                            key = {crypto.randomUUID()}
-                            product_id={arr[i]._id}
-                            id={arr[i].id}
-                            title={arr[i].title}
-                            price={arr[i].price} 
-                            category={arr[i].category}
-                            description={arr[i].description}
-                            image={arr[i].image}
-                            rating={arr[i].rating}
-                        />);
-
-                        // Pushes each product into allProducts array and displayedProducts arr
-                        newProducts.push(newProduct);
-                        // allProducts.push(newProducts);
-                    }
-                    return newProducts;
-                });
+                const newProducts = res.data.map(product => (
+                    <Product
+                        key={crypto.randomUUID()} // Vince implemented
+                        product_id={product._id}
+                        id={product.id}
+                        title={product.title}
+                        price={product.price}
+                        category={product.category}
+                        description={product.description}
+                        image={product.image}
+                        rating={product.rating}
+                    />
+                ));
+                setAllProducts(newProducts); // Vince implemented
+                setDisplayedProducts(newProducts); // Vince implemented
             })
-
-            // Catches any errors during our get request and displays a message box with the error
             .catch(e => {
-                
                 alert(e);
-            })
+            });
     };
 
     // Calls the getComponents function so we can render the products
     useEffect(() => {
         getComponents();
-        console.log("hit")
+        console.log("hit");
     }, []);
 
     // Returns a styled div containing the rendered products
-    //
     return (
         <div>
-            {/* <Form>
-                <InputGroup classname = 'searchInput'>
-                < input type='text' placeholder='Enter item here...' onChange={FilterItems}></input>
-                <Form Control   
-                onchange{(e)=>{ () =>{
-
-                }                 
-                }}
-                 />
-
-                </InputGroup>
-                </Form> */}
-                
-            <Search displayedProducts = {displayedProducts} setDisplayedProducts = { setDisplayedProducts } getComponents = { getComponents }/>
-           
+            <Search 
+                allProducts={allProducts} // Vince implemented
+                displayedProducts={displayedProducts} 
+                setDisplayedProducts={setDisplayedProducts} 
+                getComponents={getComponents} 
+            />
             <div className="product-display">
-                { displayedProducts }
+                {displayedProducts}
             </div>
         </div>
     );
@@ -122,13 +73,17 @@ const Marketplace = (  ) => {
 export default Marketplace;
 
 
-// In-Source Test
+/* =======================================================
+In-Source Test
+=======================================================*/
+
 if (import.meta.vitest) {
     const { it, expect } = import.meta.vitest
-  
-    it('renders correct type of value', () => {
-        const { container } = render(<Marketplace />);
+
+if (import.meta.vitest) {
         const displayedProductsArray = container.querySelector('.product-display').childNodes;
         expect(Array.isArray(Array.from(displayedProductsArray))).toBe(true);
-    })
+    }
+    // Print the rendered output to the console for debugging
+  screen.debug();
 }
