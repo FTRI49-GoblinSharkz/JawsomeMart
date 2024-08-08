@@ -13,6 +13,7 @@ import SignupForm from './components/Home/SignupForm';
 import * as authService from '../src/services/authService'
 import './App.css';
 import AdminPanel from './components/Admin/AdminPanel';
+import Landing from './components/Landing/Landing';
 
 
 export const AuthedUserContext = createContext(null);
@@ -39,6 +40,7 @@ function App() {
   return (
     <>
       <AuthedUserContext.Provider value={user}>
+        <Landing />
         {/* <Navbar handleSignout={handleSignout}/> */}
         <Navbar handleSignout={handleSignout}/>
         <div className="appContainer">
@@ -53,7 +55,6 @@ function App() {
               <>
                 <Route path="/" element={<SigninForm setUser={setUser} />} />
                 <Route path="/signup" element={<SignupForm setUser={setUser} />} />
-                
               </>
             )}
             
