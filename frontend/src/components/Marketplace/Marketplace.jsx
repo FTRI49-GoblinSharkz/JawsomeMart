@@ -26,6 +26,7 @@ const Marketplace = () => {
         axios.get('/api/products')
             .then(res => {
                 // Function that changes the state of products array
+
                 const newProducts = res.data.map(product => (
                     <Product
                         key={crypto.randomUUID()} // Vince implemented
@@ -73,13 +74,17 @@ const Marketplace = () => {
 export default Marketplace;
 
 
+/* =======================================================
+In-Source Test
+=======================================================*/
 
+if (import.meta.vitest) {
+    const { it, expect } = import.meta.vitest
 
-// productsState = [sunglass, jeans, socks, hat]
-
-// queried: head
-// setproductsState([sunglass,  hat])
-//  productsState = [sunglass,  hat]
-
-// query = ""
-// productsState = [sunglass, jeans, socks, hat]
+if (import.meta.vitest) {
+        const displayedProductsArray = container.querySelector('.product-display').childNodes;
+        expect(Array.isArray(Array.from(displayedProductsArray))).toBe(true);
+    }
+    // Print the rendered output to the console for debugging
+  screen.debug();
+}
