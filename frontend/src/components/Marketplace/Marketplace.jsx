@@ -26,6 +26,7 @@ const Marketplace = () => {
         axios.get('/api/products')
             .then(res => {
                 // Function that changes the state of products array
+
                 const newProducts = res.data.map(product => (
                     <Product
                         key={crypto.randomUUID()} // Vince implemented
