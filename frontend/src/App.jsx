@@ -1,7 +1,7 @@
 import { useState, createContext,useEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
-
-
+import { render, screen, cleanup } from '@testing-library/react';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 import Navbar from './components/Navbar/Navbar';
 import Marketplace from './components/Marketplace/Marketplace'
@@ -65,3 +65,43 @@ function App() {
 }
 
 export default App;
+
+
+// In-Source Test
+if (import.meta.vitest) {
+  const { it, expect } = import.meta.vitest
+
+
+  describe('App', () => {
+
+    let container = null;
+
+    beforeEach(() => {
+      // Set up a DOM element as a render target
+      container = document.createElement('div');
+      container.setAttribute('id', 'root');
+      document.body.appendChild(container);
+    });
+  
+    it('renders the App component', () => {
+      const { container } = render(
+        <Router>
+          <App />
+        </Router>,
+        { container: document.getElementById('root') } // Specify the container
+      );
+    });
+
+    it('renders the navigation bar', () => {
+      const { container } = render(
+        <Router>
+          <App />
+        </Router>,
+        { container: document.getElementById('root') } // Specify the container
+      );
+      expect(screen.getByRole('navigation')).toBeInTheDocument();
+    });
+  
+
+  })
+}
