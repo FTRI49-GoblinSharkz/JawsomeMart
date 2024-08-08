@@ -1,8 +1,9 @@
 // Search.jsx
 
-import { useState } from 'react';
+import React, { useState } from 'react';
+import './Search.css';
 
-export default function Search({ allProducts, setDisplayedProducts }) { // Vince implemented
+export default function Search({ allProducts, displayedProducts, setDisplayedProducts }) { // Vince implemented
     const [search, setSearch] = useState('');
 
     const handleSearch = (e) => {
@@ -28,8 +29,9 @@ export default function Search({ allProducts, setDisplayedProducts }) { // Vince
     return (
         <div>
             <input 
+                className='searchbar'
                 type='text'
-                placeholder='Enter Item Here'
+                placeholder='Search Item Here...'
                 value={search}
                 onChange={handleSearch}
             />

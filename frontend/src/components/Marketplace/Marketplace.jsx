@@ -7,7 +7,7 @@
  */
 
 // Importing necessary tools
-import {useState, useEffect } from 'react';
+import { InputGroup , Form, useState, useEffect } from 'react';
 import axios from 'axios';
 import Product from './Product.jsx';
 import Search from './Search.jsx';
@@ -71,3 +71,15 @@ const Marketplace = () => {
 
 // Exports the Marketplace function
 export default Marketplace;
+
+
+
+
+// productsState = [sunglass, jeans, socks, hat]
+
+// queried: head
+// setproductsState([sunglass,  hat])
+//  productsState = [sunglass,  hat]
+
+// query = ""
+// productsState = [sunglass, jeans, socks, hat]
